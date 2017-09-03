@@ -1,0 +1,27 @@
+{
+  "name": "none-bot",
+  "version": "1.0.0",
+  "description": "Bot that says nice words to None, to do not let her to die.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seitbekir/none-bot.git"
+  },
+  "keywords": [
+    "love",
+    "peace",
+    "none-interference"
+  ],
+  "author": "seitbekir",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/seitbekir/none-bot/issues"
+  },
+  "homepage": "https://github.com/seitbekir/none-bot#readme",
+  "dependencies": {
+    "node-vk-bot-api": "^1.0.0"
+  }
+}
