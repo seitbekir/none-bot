@@ -33,6 +33,7 @@ bot.hears('люби', (ctx) => {
 bot.hears('перестань', (ctx) => {
     if (lovers.indexOf(ctx.user_id) > -1) {
         ctx.sendMessage(ctx.user_id, "Ладно, больше не будешь получать фраз 😔")
+        lovers.splice(lovers.indexOf(ctx.user_id), 1);
     } else {
         ctx.sendMessage(ctx.user_id, "Я и не начинал ☺")
     }
