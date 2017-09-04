@@ -1,10 +1,15 @@
 const VK = require('node-vk-bot-api')
-var fs = require('fs')
+const fs = require('fs')
+const path = require('path')
 
 const bot = new VK({ token: process.env.TOKEN })
 
-const niceWordsSource = process.env.NICE_WORDS
-const clientsSource = process.env.CLIENTS
+if (!process.env.NICE_WORDS || !process.env.CLIENTS) {
+    throw new Error('env vars are required')
+}
+
+const niceWordsSource = path.resolve(process.env.NICE_WORDS)
+const clientsSource = path.resolve(process.env.CLIENTS)
 const adminId = process.env.ADMIN
 
 const commands = {
@@ -31,16 +36,16 @@ bot.hears(commands.say, (ctx) => {
 
 bot.hears(commands.love, (ctx) => {
     if (setClient(ctx.user_id)) {
-        ctx.sendMessage(ctx.user_id, "Каждый час ты будешь получать фразу ❤☺")
+        ctx.sendMessage(ctx.user_id, 'Каждый час ты будешь получать фразу ❤☺')
     } else {
-        ctx.sendMessage(ctx.user_id, "Я уже тебя люблю ❤💋")
+        ctx.sendMessage(ctx.user_id, 'Я уже тебя люблю ❤💋')
     }
 })
 bot.hears(commands.stop, (ctx) => {
     if (unsetClient(ctx.user_id)) {
-        ctx.sendMessage(ctx.user_id, "Ладно, больше не будешь получать фраз 😔")
+        ctx.sendMessage(ctx.user_id, 'Ладно, больше не будешь получать фраз 😔')
     } else {
-        ctx.sendMessage(ctx.user_id, "Я и не начинал ☺")
+        ctx.sendMessage(ctx.user_id, 'Я и не начинал ☺')
     }
 })
 
@@ -93,7 +98,7 @@ function admin(ctx) {
     if (ctx.user_id.toString() === adminId.toString()) {
         return true
     }
-    ctx.sendMessage(ctx.user_id, "Это не для вас написано ☺")
+    ctx.sendMessage(ctx.user_id, 'Это не для вас написано ☺')
     return false
 }
 
@@ -117,8 +122,8 @@ function getNiceWord() {
 }
 function getNiceWords() {
     try {
-        let niceWords = fs.readFileSync(niceWordsSource).toString().split("\n")
-        return niceWords.filter(e => e !== "")
+        let niceWords = fs.readFileSync(niceWordsSource).toString().split('\n')
+        return niceWords.filter(e => e !== '')
     } catch(err) {
         console.error(err)
         return []
@@ -157,8 +162,8 @@ function unsetNiceWord(word) {
 
 function getClients() {
     try {
-        let clients = fs.readFileSync(clientsSource).toString().split("\n")
-        return clients.filter(e => e !== "")
+        let clients = fs.readFileSync(clientsSource).toString().split('\n')
+        return clients.filter(e => e !== '')
     } catch(err) {
         console.error(err)
         return []
